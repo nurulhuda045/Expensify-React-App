@@ -5,6 +5,7 @@ import AppRouter from './routers/AppRouter'
 import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals';
 import configureStore from '../src/store/configureStore'
+import '../src/firebase/firebase'
 
 const store = configureStore()
 
