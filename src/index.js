@@ -6,8 +6,10 @@ import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals';
 import configureStore from '../src/store/configureStore'
 import '../src/firebase/firebase'
+import { startSetExpenses } from './actions/expense';
 
 const store = configureStore()
+startSetExpenses()
 
 const jsx = (
 	<React.StrictMode>
@@ -17,8 +19,12 @@ const jsx = (
 	</React.StrictMode>
 );
 
+ReactDOM.render(<p>Loading...</p> ,document.getElementById('root'));
 
-ReactDOM.render(jsx ,document.getElementById('root'));
+store.dispatch(startSetExpenses()).then(() => {
+	ReactDOM.render(jsx ,document.getElementById('root'));
+});
+
  
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

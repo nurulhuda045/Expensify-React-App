@@ -19,7 +19,7 @@ const database = app.database();
 export { app, database as default};
 
 
-// database.ref('expenses').on('value', (snapshot) => {
+// database.ref('expenses').once('value', (snapshot) => {
 // 	const expenses = []
 // 	snapshot.forEach((childSnapshot) => {
 // 		expenses.push({
