@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import AppRouter from './routers/AppRouter'
+import AppRouter, {history} from './routers/AppRouter'
 import { Provider } from 'react-redux'
-import reportWebVitals from './reportWebVitals';
 import configureStore from '../src/store/configureStore'
-import '../src/firebase/firebase'
+import { firebase } from '../src/firebase/firebase'
 import { startSetExpenses } from './actions/expense';
+import {login, logout } from './actions/auth'
 
 const store = configureStore()
 startSetExpenses()
@@ -19,14 +19,31 @@ const jsx = (
 	</React.StrictMode>
 );
 
+let hasRendered = false;
+const renderApp = () => {
+	if(!hasRendered) {
+		ReactDOM.render(jsx ,document.getElementById('root'));
+		hasRendered = true;
+	} 
+}
+
 ReactDOM.render(<p>Loading...</p> ,document.getElementById('root'));
 
-store.dispatch(startSetExpenses()).then(() => {
-	ReactDOM.render(jsx ,document.getElementById('root'));
-});
 
- 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+firebase.auth().onAuthStateChanged((user) => {
+	if(user) {
+		store.dispatch(login(user.uid))
+		store.dispatch(startSetExpenses()).then(() => {
+			renderApp()
+			if(history.location.pathname === '/') {
+				history.push('/dashboard')
+			}
+		});
+	} else {
+		console.log('logout')
+		store.dispatch(logout())
+		renderApp()
+		history.push('/')
+	}
+})
+

@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/database'
+import 'firebase/auth'
 
 
 const firebaseConfig = {
@@ -14,9 +15,11 @@ const firebaseConfig = {
 
 const app = firebase.initializeApp(firebaseConfig);
 
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+
 const database = app.database();
 
-export { app, database as default};
+export { firebase, googleAuthProvider,  database as default};
 
 
 // database.ref('expenses').once('value', (snapshot) => {
