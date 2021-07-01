@@ -1,0 +1,39 @@
+.link:link,
+.link:visited {
+	text-decoration: none;
+	border-radius: 2px;
+	font-size: 1.5rem;
+	padding: $s-size $l-size;
+}
+
+.link--blue {
+	background: rgb(65, 147, 240);
+	color: #efefef;
+}
+
+.btn {
+	border: none;
+	border-radius: 2px;
+	font-size: 1.5rem;
+	padding: $s-size $l-size;
+	align-self: stretch;
+
+	&--blue {
+		background: rgb(65, 147, 240);
+		color: #efefef;
+	}
+
+	&--transparent {
+		background-color: transparent;
+		color: #efefef;
+	}
+
+	&--red {
+		background-color: red;
+		color: #efefef;
+	}
+}
+
+.btn--remove {
+	margin-bottom: 2rem;
+}
